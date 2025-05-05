@@ -88,14 +88,14 @@
             numTelefono.Maximum = new decimal(new int[] { -1530494976, 232830, 0, 0 });
             numTelefono.Name = "numTelefono";
             numTelefono.Size = new Size(120, 23);
-            numTelefono.TabIndex = 4;
+            numTelefono.TabIndex = 0;
             // 
             // txtNombre
             // 
             txtNombre.Location = new Point(227, 103);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(100, 23);
-            txtNombre.TabIndex = 9;
+            txtNombre.TabIndex = 1;
             // 
             // lblNombre
             // 
@@ -120,7 +120,7 @@
             txtApellido.Location = new Point(361, 104);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(100, 23);
-            txtApellido.TabIndex = 11;
+            txtApellido.TabIndex = 2;
             // 
             // lblCategorias
             // 
@@ -136,7 +136,7 @@
             txtCategoria.Location = new Point(74, 168);
             txtCategoria.Name = "txtCategoria";
             txtCategoria.Size = new Size(100, 23);
-            txtCategoria.TabIndex = 13;
+            txtCategoria.TabIndex = 3;
             // 
             // label2
             // 
@@ -164,7 +164,7 @@
             numEliminar.Maximum = new decimal(new int[] { -1530494976, 232830, 0, 0 });
             numEliminar.Name = "numEliminar";
             numEliminar.Size = new Size(120, 23);
-            numEliminar.TabIndex = 18;
+            numEliminar.TabIndex = 7;
             // 
             // label4
             // 
@@ -180,7 +180,7 @@
             btnEliminar.Location = new Point(640, 105);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(75, 23);
-            btnEliminar.TabIndex = 19;
+            btnEliminar.TabIndex = 8;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = true;
             btnEliminar.Click += btnEliminar_Click;
@@ -190,7 +190,7 @@
             btnCrear.Location = new Point(74, 53);
             btnCrear.Name = "btnCrear";
             btnCrear.Size = new Size(75, 23);
-            btnCrear.TabIndex = 20;
+            btnCrear.TabIndex = 5;
             btnCrear.Text = "Crear";
             btnCrear.UseVisualStyleBackColor = true;
             btnCrear.Click += btnCrear_Click;
@@ -200,7 +200,7 @@
             btnModificar.Location = new Point(227, 53);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(75, 23);
-            btnModificar.TabIndex = 21;
+            btnModificar.TabIndex = 6;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = true;
             btnModificar.Click += btnModificar_Click;
@@ -210,7 +210,7 @@
             btnBuscar.Location = new Point(640, 216);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(75, 23);
-            btnBuscar.TabIndex = 24;
+            btnBuscar.TabIndex = 10;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
             btnBuscar.Click += btnBuscar_Click;
@@ -229,7 +229,7 @@
             txtBuscar.Location = new Point(522, 216);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(100, 23);
-            txtBuscar.TabIndex = 22;
+            txtBuscar.TabIndex = 9;
             // 
             // label6
             // 
@@ -245,7 +245,7 @@
             txtCorreo.Location = new Point(202, 168);
             txtCorreo.Name = "txtCorreo";
             txtCorreo.Size = new Size(100, 23);
-            txtCorreo.TabIndex = 25;
+            txtCorreo.TabIndex = 4;
             // 
             // frmContactos
             // 

@@ -45,27 +45,44 @@ namespace CRUD_productos
 
         public void CrearContacto(string nombre, string apellido, int telefono, string correo, string categoria)
         {
-            string query = "INSERT INTO contactos (nombre, apellido, telefono, correo, categoria) VALUES (@nombre, @apellido, @telefono, @correo, @categoria)";
+            string checkQuery = "SELECT COUNT(*) FROM contactos WHERE telefono = @telefono";
+            string insertQuery = "INSERT INTO contactos (nombre, apellido, telefono, correo, categoria) VALUES (@nombre, @apellido, @telefono, @correo, @categoria)";
 
             try
             {
                 using (NpgsqlConnection connection = ObtenerConexion())
-                using (NpgsqlCommand cmd = new NpgsqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@nombre", nombre);
-                    cmd.Parameters.AddWithValue("@apellido", apellido);
-                    cmd.Parameters.AddWithValue("@telefono", telefono);
-                    cmd.Parameters.AddWithValue("@correo", correo);
-                    cmd.Parameters.AddWithValue("@categoria", categoria);
+                    // me fijo si ya existe el mismo teléfono //
+                    using (NpgsqlCommand checkCmd = new NpgsqlCommand(checkQuery, connection))
+                    {
+                        checkCmd.Parameters.AddWithValue("@telefono", telefono);
+                        int count = Convert.ToInt32(checkCmd.ExecuteScalar());
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show("Contacto creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (count > 0)
+                        {
+                            MessageBox.Show("No se puede crear contacto. Ya existe un contacto con el mismo teléfono.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
                     }
-                    else
+
+                    // Insertar el nuevo contacto  
+                    using (NpgsqlCommand insertCmd = new NpgsqlCommand(insertQuery, connection))
                     {
-                        MessageBox.Show("Error al crear el contacto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        insertCmd.Parameters.AddWithValue("@nombre", nombre);
+                        insertCmd.Parameters.AddWithValue("@apellido", apellido);
+                        insertCmd.Parameters.AddWithValue("@telefono", telefono);
+                        insertCmd.Parameters.AddWithValue("@correo", correo);
+                        insertCmd.Parameters.AddWithValue("@categoria", categoria);
+
+                        int rowsAffected = insertCmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Contacto creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al crear el contacto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
             }
@@ -138,7 +155,7 @@ namespace CRUD_productos
 
         public DataTable BuscarContactos(string busqueda)
         {
-            string query = "SELECT * FROM contactos WHERE nombre ILIKE @busqueda OR apellido ILIKE @busqueda OR telefono ILIKE @busqueda OR correo ILIKE @busqueda OR categoria ILIKE @busqueda";
+            string query = "SELECT * FROM contactos WHERE nombre ILIKE @busqueda OR apellido ILIKE @busqueda OR CAST(telefono AS TEXT) LIKE @busqueda OR correo ILIKE @busqueda OR categoria ILIKE @busqueda";
             DataTable dataTable = new DataTable();
 
             try
@@ -161,5 +178,6 @@ namespace CRUD_productos
 
             return dataTable;
         }
+
     }
 }

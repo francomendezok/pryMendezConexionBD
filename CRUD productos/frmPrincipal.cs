@@ -36,6 +36,7 @@ namespace CRUD_productos
             {
                 conexion.EliminarContacto(telefono);
                 RefrescarTabla();
+                numEliminar.Value = 0;
             }
             else
             {
