@@ -1,62 +1,125 @@
-Laboratorio 3 - Desafíos Semanales 1
-📋 Objetivos
-Consolidar lo aprendido en Laboratorio 1 y 2.
+Laboratorio 3
+Desafíos semanales 3
+Operaciones CRUD con ADO.NET
+Aprender a manipular datos desde C# (insertar, modificar, eliminar y consultar)
 
-Ejercitar la resolución de actividades aplicando conocimientos de programación.
 
-🛠 Requisitos
-Diseño de Base de Datos:
-Estructura clara con relaciones bien definidas entre tablas.
+Usar comandos SQL desde la aplicación
 
-Interfaz de Usuario:
-Implementación de una interfaz intuitiva usando Windows Forms.
-(Se permite enriquecerla utilizando paquetes NuGet.)
 
-Validación de Datos:
-Mecanismos para garantizar la integridad de los datos ingresados.
-Control estricto de carga de datos (números, fechas, códigos).
+Practicar el uso de SqlCommand y parámetros
 
-Manejo de Errores:
-Uso de bloques try-catch para capturar y manejar excepciones.
-Prevención de carga de datos erróneos.
 
-Nota:
-El proyecto debe ser compatible con Visual Studio y utilizar el Framework .NET 4.7 para mantener la estandarización.
+Subir avances al repositorio de GitHub
 
-📦 Proyecto: Aplicación de Gestión de Inventario para un Pequeño Negocio
-Funcionalidades
-CRUD de Productos:
-Agregar, modificar y eliminar productos.
 
-Búsquedas Avanzadas:
-Buscar productos por nombre, código o categoría.
 
-Generación de Reportes:
-Creación de reportes gráficos de inventario utilizando Chart SP4 del TID de Laboratorio 3.
+¿Qué es CRUD?
+C: Create (Insertar)
 
-Control de Stock:
-Supervisar niveles de stock y generar alertas de reposición automática.
 
-Base de Datos
-Tabla: Productos
+R: Read (Leer o consultar)
 
-Código
 
-Nombre
+U: Update (Modificar)
 
-Descripción
 
-Precio
+D: Delete (Eliminar)
 
-Stock
 
-Tabla: Categorías
+¿Por qué usar parámetros en SQL?
+Para evitar inyecciones de código malicioso
 
-(La base de datos se diseñó en Microsoft Access.)
 
-🧠 Análisis
-Antes de la implementación:
+Para que los valores se pasen de forma segura
 
-Analizar la situación del negocio.
 
-Definir una estructura de datos eficiente y adecuada.
+Para reutilizar consultas
+
+
+
+🛠️ Preparar el proyecto
+Usaremos el mismo proyecto de la Semana 2 (hay que clonar el repositorio
+
+🔹 Agregar un producto (CREATE)
+string insertQuery = "INSERT INTO Productos (Nombre, Descripcion, Precio, Stock, CategoriaId) VALUES (@nombre, @descripcion, @precio, @stock, @categoriaId)";
+SqlCommand cmd = new SqlCommand(insertQuery, conn);
+cmd.Parameters.AddWithValue("@nombre", "Mouse inalámbrico");
+cmd.Parameters.AddWithValue("@descripcion", "Mouse óptico USB");
+cmd.Parameters.AddWithValue("@precio", 150000);
+cmd.Parameters.AddWithValue("@stock", 20);
+cmd.Parameters.AddWithValue("@categoriaId", 1); // Tecnología
+cmd.ExecuteNonQuery();
+Console.WriteLine("✅ Producto agregado con éxito.");
+
+🔹 Consultar productos (READ)
+string selectQuery = "SELECT P.Nombre, P.Precio, P.Stock, C.Nombre AS Categoria FROM Productos P JOIN Categorias C ON P.CategoriaId = C.Id";
+SqlCommand cmd = new SqlCommand(selectQuery, conn);
+SqlDataReader reader = cmd.ExecuteReader();
+while (reader.Read())
+{
+    Console.WriteLine($"{reader["Nombre"]} - ${reader["Precio"]} - Stock: {reader["Stock"]} - Categoría: {reader["Categoria"]}");
+}
+reader.Close();
+
+
+🔹 Modificar un producto (UPDATE)
+string updateQuery = "UPDATE Productos SET Precio = @precio WHERE Nombre = @nombre";
+SqlCommand cmd = new SqlCommand(updateQuery, conn);
+cmd.Parameters.AddWithValue("@precio", 175000);
+cmd.Parameters.AddWithValue("@nombre", "Mouse inalámbrico");
+cmd.ExecuteNonQuery();
+Console.WriteLine("🔄 Producto actualizado.");
+
+🔹 Eliminar un producto (DELETE)
+string deleteQuery = "DELETE FROM Productos WHERE Nombre = @nombre";
+SqlCommand cmd = new SqlCommand(deleteQuery, conn);
+cmd.Parameters.AddWithValue("@nombre", "Mouse inalámbrico");
+cmd.ExecuteNonQuery();
+Console.WriteLine("❌ Producto eliminado.");
+
+
+🎯 Ejercicio CRUD
+Pedir al usuario que elija una opción:
+ 1-Agregar / 2-Listar / 3-Modificar precio / 4-Eliminar
+
+
+Ejecutar la acción según la opción usando SqlCommand
+
+
+Mostrar resultados por consola
+
+
+Guardar y subir los cambios a GitHub
+
+Subir a GitHub
+Crear una rama de GIT
+
+Guardar los cambios
+
+
+Hacer commit: "Implementación de operaciones CRUD"
+
+
+Hacer push al repositorio remoto
+
+
+Verificar en GitHub
+
+Ejercicios finales
+✅ Ampliar el CRUD para permitir elegir el producto por su código
+
+✅ Permitir modificar también la descripción del producto
+
+✅ Subir a GitHub
+
+![Captura de pantalla 2025-05-04 195516](https://github.com/user-attachments/assets/7d08ecea-cf23-4ce3-9387-15ec04a2f7a6)
+
+
+![Captura de pantalla 2025-05-04 195755](https://github.com/user-attachments/assets/51911aa6-2e36-4ef1-a525-d22c29113e98)
+
+
+![Captura de pantalla 2025-05-04 195811](https://github.com/user-attachments/assets/912149ed-d6a9-4977-9b0c-1b195b52d770)
+
+
+![Captura de pantalla 2025-05-04 195859](https://github.com/user-attachments/assets/61805bff-95b9-48aa-8725-950e66df7d40)
